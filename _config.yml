@@ -17,8 +17,8 @@ title: an interactive portfolio for p5.js projects
 email: contact@alessiamilo.com
 description: > # this means to ignore newlines until "baseurl:"
   amilo interactive sketches
-baseurl: "/interact" # the subpath of your site, e.g. /blog
-url: "https://amilo.github.io/interact/" # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: "" # the subpath of your site, e.g. /blog
+url: http://amilo.github.io/interact # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: alesmilo
 github_username:  amilo
 
