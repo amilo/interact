@@ -1,3 +1,7 @@
+# Using instructions below for interactive sketches
+
+
+
 This project is a template for a simple portfolio of pictures and p5.js sketches.
 
 # Live Demo
