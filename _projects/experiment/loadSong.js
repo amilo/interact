@@ -11,6 +11,8 @@ song = loadSound('aural30sec-018-FOU.wav');
 }
 
 let value = 400;
+let radius = 200;
+let dist;
 
 let osc, playing, freq, amp;
 
@@ -21,6 +23,8 @@ let l2 = 0.1; // decay level  0.0 to 1.0
 
 let env;
 let triOsc;
+
+let xcenter, ycenter;
 
 // function setup() {
 // createCanvas(710, 200);
@@ -35,7 +39,8 @@ function setup() {
   background(255, 250, 243);
   img.mask(imgMask);
   imageMode(CENTER);
-
+  xcenter = canvas.width/2
+  ycenter = canvas.height/4
   //env = new p5.Envelope(t1, l1, t2, l2);
   triOsc = new p5.Oscillator('sine');
 
@@ -45,7 +50,8 @@ function setup() {
 function draw(){
   translate(mouseX, mouseY);
   rotate(PI / 180 * frameCount%360);
-      if (mouseIsPressed) {
+  dist= sqrt(pow((mouseX - xcenter),2) + pow((mouseY - ycenter),2));
+      if (mouseIsPressed && dist<radius) {
       stroke(255);
           image(img, 0, 0, value, value);
           updateValue();
@@ -53,6 +59,7 @@ function draw(){
       stroke(237, 34, 93);
     }
     playInDraw();
+    dist= sqrt(pow((mouseX - xcenter),2) + pow((mouseY - ycenter),2));
 }
 
 // function playSound() {
@@ -64,7 +71,7 @@ function draw(){
 function playInDraw(){
 
   freq = constrain(map(mouseX, 0, width, 100, 500), 100, 500);
-  amp = constrain(map(mouseY, height, 0, 0, 1), 0, 1);
+  amp = constrain(map(mouseY, height, 0, 0, 1), 0, 0.4);
 
   // text('tap to play', 20, 20);
   // text('freq: ' + freq, 20, 40);
@@ -73,7 +80,7 @@ function playInDraw(){
   if (playing) {
     // smooth the transitions by 0.1 seconds
     triOsc.freq(freq, 0.1);
-    triOsc.amp(amp, 0.1);
+    triOsc.amp(amp, 1);
   }
 }
 
@@ -96,7 +103,7 @@ function playOscillator() {
 
 function mouseReleased() {
   // ramp amplitude to 0 over 0.5 seconds
-  triOsc.amp(0, 0.5);
+  triOsc.amp(0, 0.2);
   playing = false;
 }
 
