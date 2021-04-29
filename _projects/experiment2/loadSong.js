@@ -80,7 +80,7 @@ flower1.mask(imgMask);
         
         //myButtons.push(createButton(i.toString(), i.toString()));
         myButtons[i].parent('simple-sketch-aural');
-        myButtons[i].position(i%7*spacing, 400 + (i%3*40));
+        myButtons[i].position(i%7*spacing, 600 + (i%3*40));
         myButtons[i].style('background-color', col[i]);
         myButtons[i].mousePressed(paintEllipse);
         myButtons[i].mouseReleased(stopOscillator);
