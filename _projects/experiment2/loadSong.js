@@ -49,10 +49,14 @@ var spacing ;
 
 function setup() {
   canvas = createCanvas(400, 800);
+    frameRate(30);
+    // Set Frame Rate to 0.5  
+//    frameRate(0.5);
     first = true;
   canvas.parent('simple-sketch-aural');
   //song.loop(); // song is ready to play during setup() because it was loaded during preload
-  background(255, 250, 243);
+//  background(255, 250, 243);
+    background(250, 250, 255,5);
   img.mask(imgMask);
     img2.mask(imgMask);
     
@@ -81,7 +85,8 @@ flower1.mask(imgMask);
         //myButtons.push(createButton(i.toString(), i.toString()));
         myButtons[i].parent('simple-sketch-aural');
         myButtons[i].position(i%7*spacing, 600 + (i%3*40));
-        myButtons[i].style('background-color', col[i]);
+//        myButtons[i].style('background-color', col[i]);
+        myButtons[i].style('position', 'absolute');
         myButtons[i].mousePressed(paintEllipse);
         myButtons[i].mouseReleased(stopOscillator);
     }
@@ -100,13 +105,119 @@ function paintEllipse(){
     //ellipse(100,100,100);
     //value = 50;
      updateValue();
-    if (first){
-    image(img, frameCount%40, frameCount%40, value, value);
-    }else{
-        image(img2, frameCount%40, frameCount%40, value, value);
+   
+    //if (first){
+    //image(img, frameCount%100, (frameCount)%50*2, value, value);
+     //tint(frameCount%360, 100, 3, 5);
+//    osc1 = (PI/180)* (frameCount%360);
+    
+    // to do selection by button pressed
+    // no plane rotation
+    // o1 4 o2 3 // preset celtic
+    // o1 2 o2 3 // preset nebula
+    // o1 1 o2 3 // s
+    // o1 3 o2 2 // nebula 90 rotate
+    
+    osc1 = (PI/180)* (frameCount*2%360);
+    
+//    osc2 = (PI/180)* (frameCount*2%360);
+    
+    osc2 = (PI/180)* (frameCount*5%360);
+    
+//    background(250, 250, 255,2);
+    
+     colorMode(RGB);
+    
+    tint(100+frameCount%120, 255, 100-frameCount%120, 50);
+    
+//    image(img, sin(osc1)*100, sin(osc2)*-100, 80, 80);
+    
+    
+    colorMode(HSB, 120,100,10, 100);
+    
+    tint(frameCount%120, 50, 9, 50);
+//    noStroke();
+    strokeWeight(10);
+    stroke(255,10);
+    fill(frameCount%120, 50, 9, 30);
+    
+//    ellipse(sin(osc1)*100, sin(osc2)*-100, 80+sin(osc1)*20, 80+sin(osc2)*20);
+    var size = 70;
+    push();
+    
+    
+    translate(sin(osc1)*size, sin(osc2)*-size);
+//    ellipse(sin(osc1)*100, sin(osc2)*-100, 80+sin(osc1)*20, 80+sin(osc2)*20);
+    ellipse(sin(osc1)*size, 0, 10,10);
+//    ellipse(-sin(osc1)*size, 0, 20,20);
+    ellipse(0, sin(osc2)*-size, 10,10);
+//    ellipse(0, -sin(osc2)*-size, 20,20);
+    ellipse(sin(osc1)*size, sin(osc2)*-size, 10,10);
+//    line(0,0, sin(osc1)*size, sin(osc2)*-size);
+//    
+//    line(sin(osc1)*size,0, 0, sin(osc2)*-size);
+    
+    
+//    ellipse(-sin(osc1)*size, -sin(osc2)*-size, 20,20);
+   // ellipse(0, 0, 20,20);
+   // ellipse(-sin(osc1)*80, sin(osc2)*80, 20,20);
+//    ellipse(90, 0, 20,20);
+//    ellipse(80, 0, 20,20);
+//    ellipse(0, 100, 80,30);
+//    ellipse(100, 1000, 40,40);
+    // 15 for 16 beats;
+    // 30 for 8 beats;
+    // nodes 180, 90, 45;
+    if (frameCount%5 == 0){
+    image(img, sin(osc1)*size, 0, 30, 30);
+        
+         fill(50+sin(osc1)*5, 50+sin(osc2)*2, 9, 30);
+        strokeWeight(1);
+        stroke(50+sin(osc1)*10, 50+sin(osc2)*5, 8+sin(osc2)*2, 50)
+        curve(-sin(osc1)*size/2, 0, sin(osc1)*size, 50, sin(osc1)*size, sin(osc1)*size*2, sin(osc1)*size*2, sin(osc2)*-size );
+        
+        curve(0,0, 0, -sin(osc1)*size/2, 0, sin(osc1)*size*2, 0, 0);
+   
+
+//    image(img, sin(osc1)*100, sin(osc2)*-100, 60, 60);
+    }
+     if (frameCount%10 == 0){
+         
+    image(img, sin(osc2)*-size, 0, 30, 30);
+             line(sin(osc1)*size,0, 0, sin(osc2)*-size);
+         curve(0, -sin(osc1)*size/2, sin(osc1)*size*2, 50, sin(osc1)*size*2, sin(osc1)*size/2, sin(osc1)*size*4, sin(osc2)*-size*2 );
+        
+     }
+     if (frameCount%12 == 0){
+          image(img, 0, sin(osc1)*size, 30, 30);
+         
+         line(0,0, sin(osc1)*size, sin(osc2)*-size);
+            curve(0, sin(osc1)*size/2, 20+sin(osc1)*size/5, 50, sin(osc1)*size*2, sin(osc1)*size/2, sin(osc1)*size*4, sin(osc2)*-size*2 );
+        
+     }
+    
+    if (frameCount%30 == 0){
+      image(img, 0, sin(osc2)*-size, 30, 30); 
+        curve(-sin(osc1)*size/2, -sin(osc1)*size/2, sin(osc1)*size, -sin(osc1)*size/2, 0, sin(osc1)*size*2, sin(osc1)*size*2, 0);
+
     }
     
-    playOscillator();
+    if (frameCount%60 == 0){
+    tint(frameCount%120, 50, 9, 255);
+    image(img, 0, 0, 100, 100);
+//    image(img, sin(osc1)*100, sin(osc2)*-100, 60, 60);
+    }
+     
+    
+    pop();
+    
+   colorMode(RGB);
+    
+    //}else{
+        //image(img2, frameCount%300, frameCount%300, value, value);
+   // }
+    
+    //playOscillator();
    
     
     //print("hey")
@@ -146,12 +257,13 @@ function draw(){
 //    myButton.display();
     
   translate(canvas.width/2, canvas.height/4 );
-  rotate(PI / 180 * frameCount%360);
+  rotate(PI / 180 * frameCount*12%360);
   //dist= sqrt(pow((mouseX - xcenter),2) + pow((mouseY - ycenter),2));
       //if (mouseIsPressed && dist<radius) {
           
     if (mouseIsPressed) {
       stroke(255);
+        paintEllipse();
         
           //image(img, canvas.width/2 +value, canvas.height/2 -value, value, value);
          // updateValue();
@@ -160,6 +272,8 @@ function draw(){
       stroke(237, 34, 93);
     }
     playInDraw();
+    
+//    paintEllipse();
    // dist= sqrt(pow((mouseX - xcenter),2) + pow((mouseY - ycenter),2));
 }
 
@@ -239,7 +353,9 @@ function stopOscillator() {
 //  triOsc.amp(0, 0.2);
 //  playing = false;
 //}
-
+function mousePressed(){
+    background(250, 250, 255,5);
+}
 //function mousePressed() {
 // if ( song.isPlaying() ) { // .isPlaying() returns a boolean
 //   song.pause(); // .play() will resume from .pause() position

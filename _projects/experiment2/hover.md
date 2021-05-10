@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "Mandala Generator v2"
-date:   2021-04-29
+title:  "Mandalatore"
+date:   2021-05-10
 thumbnail: thumbnail.png
 dependencies:
     - p5
@@ -10,16 +10,15 @@ dependencies:
 ---
 
 
-<div id="simple-sketch-aural">
+<div id="simple-sketch-aural" position: relative>
     <script type="text/javascript" src="loadSong.js"></script>
 </div>
 
-Generazione del Mandala
-
-- premere i tastini
 
 
-**Note**: Versione Sperimentale
+Tocca lo schermo per creare il tuo mandala
+
+**Note**: Versione Sperimentale - tasti fiore inattivi
 
 <!-- ## Handling dependencies:
 In this example we are only loading the `p5.js`  -->
