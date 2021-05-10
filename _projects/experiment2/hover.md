@@ -10,7 +10,7 @@ dependencies:
 ---
 
 
-<div id="simple-sketch-aural" position: relative>
+<div id="simple-sketch-aural">
     <script type="text/javascript" src="loadSong.js"></script>
 </div>
 
