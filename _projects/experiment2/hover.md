@@ -11,7 +11,7 @@ dependencies:
 
 
 <div id="simple-sketch-aural">
-    <script type="text/javascript" src="loadSong.js"></script>
+    <script type="text/javascript" src="loadSongNew.js"></script>
 </div>
 
 
