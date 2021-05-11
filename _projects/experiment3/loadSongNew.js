@@ -5,6 +5,8 @@ let flower1;
 let img2;
 let first;
 
+let mousePressedOnce;
+
 let n;
 
 let col =[];
@@ -32,6 +34,13 @@ function preload() {
         img4 = loadImage('A_blue_flower_smaller.png');
     imgMask4 = loadImage('A_blue_flower_smaller.png');
     
+           img6 = loadImage('A_Leaves_Full_Edges.png');
+    imgMask6 = loadImage('A_Leaves_Full_Edges.png');
+    
+    
+           img7 = loadImage('B_Leaves_Full_Sat.png');
+    imgMask7 = loadImage('B_Leaves_Full_Sat.png');
+    
     //        img3 = loadImage('C_Red_Pink_Flower_Oil.png');
 //    imgMask3 = loadImage('C_Red_Pink_Flower_Oil.png');
 //    
@@ -44,10 +53,10 @@ let dist;
 
 let osc, playing, freq, amp;
 
-let t1 = 0.01; // attack time in seconds
-let l1 = 0.3; // attack level 0.0 to 1.0
-let t2 = 0.2; // decay time in seconds
-let l2 = 0.1; // decay level  0.0 to 1.0
+let t1 = 0.04; // attack time in seconds
+let l1 = 0.15; // attack level 0.0 to 1.0
+let t2 = 0.16; // decay time in seconds
+let l2 = 0.0; // decay level  0.0 to 1.0
 
 let env;
 let triOsc;
@@ -77,6 +86,7 @@ function setup() {
     // Set Frame Rate to 0.5  
 //    frameRate(0.5);
     first = true;
+    mousePressedOnce = false;
     n = 0;
   canvas.parent('simple-sketch-aural');
   //song.loop(); // song is ready to play during setup() because it was loaded during preload
@@ -87,6 +97,8 @@ function setup() {
     img3.mask(imgMask3);
     img4.mask(imgMask4);
      img5.mask(imgMask5);
+    img6.mask(imgMask6);
+    img7.mask(imgMask7);
     
 flower1.mask(imgMask);
   imageMode(CENTER);
@@ -94,7 +106,7 @@ flower1.mask(imgMask);
   ycenter = canvas.height/4;
     
   env = new p5.Envelope(t1, l1, t2, l2);
-  triOsc = new p5.Oscillator('sine');
+  triOsc = new p5.Oscillator('square');
     //PrintMe();
     spacing = (canvas.width - buttonWidth)/ 6;
     //colorA = map(mouseX, 0, width, 0, 255);
@@ -146,6 +158,7 @@ flower1.mask(imgMask);
 function action(){
     playOscillator();
     paintEllipse();
+    playInDraw();
 }
 
 function paintEllipse(){
@@ -236,12 +249,16 @@ function paintEllipse(){
      if (frameCount%10 == 0){
          
     image(img3, sin(osc2)*-size, 0, 50, 50);
+         noTint();
+         image(img7, width/2-width/4, sin(osc2)*-size, 120, 120); 
              line(sin(osc1)*size,0, 0, sin(osc2)*-size);
          curve(0, -sin(osc1)*size/2, sin(osc1)*size*2, 50, sin(osc1)*size*2, sin(osc1)*size/2, sin(osc1)*size*4, sin(osc2)*-size*2 );
         
      }
      if (frameCount%12 == 0){
           image(img5, 0, sin(osc1)*size, 90, 90);
+         
+         image(img6, width/4-width/2, sin(osc1)*size, 90, 90);
          
          line(0,0, sin(osc1)*size, sin(osc2)*-size);
             curve(0, sin(osc1)*size/2, 20+sin(osc1)*size/5, 50, sin(osc1)*size*2, sin(osc1)*size/2, sin(osc1)*size*4, sin(osc2)*-size*2 );
@@ -250,6 +267,8 @@ function paintEllipse(){
     
     if (frameCount%30 == 0){
       image(img3, 0, sin(osc2)*-size, 30, 30); 
+        
+        
         curve(-sin(osc1)*size/2, -sin(osc1)*size/2, sin(osc1)*size, -sin(osc1)*size/2, 0, sin(osc1)*size*2, sin(osc1)*size*2, 0);
 
     }
@@ -308,6 +327,9 @@ function draw(){
     //drawButtons();
 //    myButton.update();
 //    myButton.display();
+//    line (map(freq,330,900,0,width), 300, map(freq,330,900,canvas.position.x,canvas.width), height);
+   
+//    line (freq/3-width/2,height/2+height/8, freq/3-width/2,height/2+height/4);
     
   translate(canvas.width/2, canvas.height/4 );
     
@@ -316,9 +338,18 @@ function draw(){
       //if (mouseIsPressed && dist<radius) {
           
     if (mouseIsPressed) {
-      stroke(255);
+//      stroke(0);
+        strokeWeight(1);
+         stroke(0);
+//        line (freq/5-width,height/2-height/32, freq/5-width,height-height/2);
+        
+        
           rotate(PI / 180 * frameCount*n%360);
+//        playOscillatorLong();
+        playOscillator();
         paintEllipse();
+        
+//        playInDraw();
         
         n++;
         
@@ -328,8 +359,12 @@ function draw(){
         //value = 10;
       stroke(237, 34, 93);
     }
-    playInDraw();
     
+    if (mouseReleased){
+        mousePressedOnce = false;
+    }
+    
+    playInDraw();
 //    paintEllipse();
    // dist= sqrt(pow((mouseX - xcenter),2) + pow((mouseY - ycenter),2));
 }
@@ -366,8 +401,14 @@ function drawButton(posX,posY,sizeX,sizeY){
 
 function playInDraw(){
 
-  freq = constrain(map(mouseX, 0, width, 100, 500), 100, 500);
-  amp = constrain(map(mouseY, height, 0, 0, 1), 0, 0.4);
+//  freq = constrain(map(mouseX, 0, width, 330, 660), 330, 660);
+    freq = map(mouseX, 0, width, 55, 110);
+ freq = freq * map(mouseY, height-300, height-100, 1, 8);   
+    
+//    freq = freq * map(mouseY, height-300, height, 1, 3);
+//    line (map (freq, 330, 990, 0, width), 400, map(freq, 330, 990, 0, width), height);
+    
+  amp = constrain(map(mouseY, height, 0, 0, 1), 0, 1);
 
 //   text('tap to play', 20, 20);
 //   text('freq: ' + freq, 20, 40);
@@ -376,7 +417,8 @@ function playInDraw(){
   if (playing) {
     // smooth the transitions by 0.1 seconds
     triOsc.freq(freq, 0.1);
-    //triOsc.amp(amp, 1);
+      
+    triOsc.amp(amp, 0.2);
   }
 }
 
@@ -399,9 +441,22 @@ function playOscillator() {
   playing = true;
 }
 
+function playOscillatorLong() {
+  // starting an oscillator on a user gesture will enable audio
+  // in browsers that have a strict autoplay policy.
+  // See also: userStartAudio();
+    if (!mousePressedOnce) {
+//  triOsc.start();
+//    env.play(triOsc);
+  playing = true;
+    mousePressedOnce = true;
+        stopOscillator();
+    }
+}
+
 function stopOscillator() {
   // ramp amplitude to 0 over 0.5 seconds
-  triOsc.amp(0, 0.2);
+  triOsc.amp(0, 0.3);
   playing = false;
 }
 
@@ -416,6 +471,7 @@ function mousePressed(){
 }
 
 function mouseReleased(){
+    stopOscillator();
 //    rotate(PI / 180 * frameCount*12%360);
 }
 //function mousePressed() {
