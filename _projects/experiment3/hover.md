@@ -2,7 +2,7 @@
 layout: post
 title:  "Mandalatore"
 date:   2021-05-11
-thumbnail: thumbnail.png
+thumbnail: icon.png
 dependencies:
     - p5
     - p5.sound

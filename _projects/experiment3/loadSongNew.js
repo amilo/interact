@@ -96,26 +96,41 @@ flower1.mask(imgMask);
   env = new p5.Envelope(t1, l1, t2, l2);
   triOsc = new p5.Oscillator('sine');
     //PrintMe();
-    spacing = (canvas.width - buttonWidth)/ 7;
+    spacing = (canvas.width - buttonWidth)/ 6;
     //colorA = map(mouseX, 0, width, 0, 255);
     //myButton = new KeyboardButton(100, 100);
     
 //    myButtons.push(createImg('flow_icon.png'));
     
-    colorMode(HSB, 7,100,3);
+    colorMode(HSB, 7,100,24);
+    
+    myButtons.push(createImg('A_blue_flower_Icon.png', "flow"));
+    myButtons.push(createImg('A_Leaves_Icon.png', "flow"));
+    myButtons.push(createImg('B_Leaves_Full_Sat_Icon.png', "flow"));
+    myButtons.push(createImg('C_Red_Pink_Flower_Oil_Icon.png', "flow"));
+    myButtons.push(createImg('D_OrangeFlower_Oil_Icon.png', "flow"));
+    myButtons.push(createImg('E_Yellow_Green_Flower_Icon.png', "flow"));
+    myButtons.push(createImg('B_Leaves_Icon.png', "flow"));
+    
+    myButtons.push(createImg('A_Leaves_Edge_Icon.png', "flow"));
+    myButtons.push(createImg('A_Leaves_Icon.png', "flow"));
+    myButtons.push(createImg('B_Leaves_Full_Sat_Icon.png', "flow"));
     
     for (var i = 0; i< myButtonsLength; i++){
         //myButtons.push(createButton(i.toString(), i.toString()));
-        col.push(color(i%7, 100,3-i%3));
+        col.push(color((i%7+3)%7, 25+(i%3)*20 , 24-((i%3)*4)));
+        
+//        if (i>7){
         
        myButtons.push(createImg('flow_icon.png', "flow"));
-        
+//        }
         //myButtons.push(createButton(i.toString(), i.toString()));
         myButtons[i].parent('simple-sketch-aural');
-        myButtons[i].position(i%7*spacing, 600 + (i%3*40));
-//        myButtons[i].style('background-color', col[i]);
+        myButtons[i].position(i%7*spacing, 600 + (i%3*60));
+        myButtons[i].size(60,60);
+        myButtons[i].style('background-color', col[i]);
         myButtons[i].style('position', 'absolute');
-        myButtons[i].mousePressed(paintEllipse);
+        myButtons[i].mousePressed(action);
         myButtons[i].mouseReleased(stopOscillator);
     }
     
@@ -126,6 +141,11 @@ flower1.mask(imgMask);
 
 
 
+}
+
+function action(){
+    playOscillator();
+    paintEllipse();
 }
 
 function paintEllipse(){
@@ -250,7 +270,7 @@ function paintEllipse(){
         //image(img2, frameCount%300, frameCount%300, value, value);
    // }
     
-    //playOscillator();
+//    playOscillator();
    
     
     //print("hey")
