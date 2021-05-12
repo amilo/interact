@@ -57,7 +57,7 @@ let dist;
 let osc, playing, freq, amp;
 
 let t1 = 0.001; // attack time in seconds
-let l1 = 0.008; // attack level 0.0 to 1.0
+let l1 = 0.098; // attack level 0.0 to 1.0
 let t2 = 0.3; // decay time in seconds
 let l2 = 0.0; // decay level  0.0 to 1.0
 
