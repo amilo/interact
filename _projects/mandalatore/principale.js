@@ -153,9 +153,10 @@ flower1.mask(imgMask);
     colorMode(HSB, 7,100,24);
     
     myButtons.push(createImg('A_blue_flower_Icon.png', "flow"));
-    myButtons.push(createImg('A_Leaves_Icon.png', "flow"));
+    myButtons.push(createImg('A_blue_flower_Icon.png', "flow"));
+//    myButtons.push(createImg('A_Leaves_Icon.png', "flow"));
     myButtons.push(createImg('B_Leaves_Full_Sat_Icon.png', "flow"));
-    myButtons.push(createImg('C_Red_Pink_Flower_Oil_Icon.png', "flow"));
+    myButtons.push(createImg('Prim_Icon.png', "flow"));
     myButtons.push(createImg('D_OrangeFlower_Oil_Icon.png', "flow"));
     myButtons.push(createImg('E_Yellow_Green_Flower_Icon.png', "flow"));
     myButtons.push(createImg('B_Leaves_Icon.png', "flow"));
@@ -163,19 +164,30 @@ flower1.mask(imgMask);
     myButtons.push(createImg('A_Leaves_Edge_Icon.png', "flow"));
     myButtons.push(createImg('A_Leaves_Icon.png', "flow"));
     myButtons.push(createImg('B_Leaves_Full_Sat_Icon.png', "flow"));
+    myButtons.push(createImg('C_Red_Pink_Flower_Oil_Icon.png', "flow"));
+    myButtons.push(createImg('D_OrangeFlower_Oil_Icon.png', "flow"));
+    myButtons.push(createImg('E_Yellow_Green_Flower_Icon.png', "flow"));
+    myButtons.push(createImg('B_Leaves_Icon.png', "flow"));
+    myButtons.push(createImg('A_Leaves_Edge_Icon.png', "flow"));
+     myButtons.push(createImg('A_Leaves_Icon.png', "flow"));
+    myButtons.push(createImg('A_Leaves_Edge_Icon.png', "flow"));
+    myButtons.push(createImg('C_Red_Pink_Flower_Oil_Icon.png', "flow"));
+    myButtons.push(createImg('D_OrangeFlower_Oil_Icon.png', "flow"));
+     myButtons.push(createImg('E_Yellow_Green_Flower_Icon.png', "flow"));
+     myButtons.push(createImg('B_Leaves_Full_Sat_Icon.png', "flow"));
     
     for (var i = 0; i< myButtonsLength; i++){
         //myButtons.push(createButton(i.toString(), i.toString()));
         col.push(color((i%7+3)%7, 25+(i%3)*20 , 24-((i%3)*4)));
         
-        if (i>=10){
-        
-       myButtons.push(createImg('Prim_Icon.png', "flow"));
-        }
+//        if (i>=10){
+         myButtons.push(createButton(i.toString(), i.toString()));
+//       myButtons.push(createImg('Prim_Icon.png', "flow"));
+//        }
         //myButtons.push(createButton(i.toString(), i.toString()));
         myButtons[i].parent('simple-sketch-aural');
         myButtons[i].position(i%7*spacing, 600 + (i%3*60));
-        myButtons[i].size(60,60);
+        myButtons[i].size(59,59);
         myButtons[i].style('background-color', col[i]);
         myButtons[i].style('position', 'absolute');
 //        myButtons[i].mousePressed(action);
@@ -331,52 +343,57 @@ function paintEllipse(freq){
     }else if(freq > 500 && freq < 580 ){
             brush = img7;
     }else if(freq > 580 && freq < 630 ){
-            brush = img9;
+            brush = img2;
     }else if(freq > 630 && freq < 700 ){
-            brush = img9;
+            brush = img3;
     }else if(freq > 700 && freq < 770 ){
             brush = img5;     
     }else if(freq > 770 && freq < 800 ){
-            brush = img9;
+            brush = img7;
         
     }else if(freq > 800 && freq < 900 ){
             brush = img6;
     }else if(freq > 900 && freq < 1000 ){
+            brush = img4;
+    }else if(freq > 1000 && freq < 1100 ){
             brush = img6;
-    }else if(freq > 1000 && freq < 1200 ){
-            brush = img9;
-    }else if(freq > 1200 && freq < 1300 ){
-            brush = img3;
+    }else if(freq > 1100 && freq < 1300 ){
+            brush = img2;
     }else if(freq > 1300 && freq < 1400 ){
             brush = img3;
-    }else if(freq > 1400 && freq < 1600 ){
-            brush = img9;
+    }else if(freq > 1400 && freq < 1500 ){
+            brush = img5;
+        
+    }else if(freq > 1500 && freq < 1600 ){
+            brush = img7;
         
     }else if(freq > 1600 && freq < 1800 ){
             brush = img4;
     }else if(freq > 1800 && freq < 2000 ){
-            brush = img9;
+            brush = img6;
     }else if(freq > 2000 && freq < 2250 ){
             brush = img7;
     }else if(freq > 2250 && freq < 2500 ){
-            brush = img2;
-    }else if(freq > 2500 && freq < 3000 ){
             brush = img9;
+    }else if(freq > 2500 && freq < 2800 ){
+            brush = img3;
+    }else if(freq > 2800 && freq < 3000 ){
+            brush = img5;
     }else if(freq > 3000 && freq < 3500 ){
             brush = img7;
     }else if(freq > 3500 && freq < 4000 ){
             brush = img7;
         
     }else if(freq > 4000 && freq < 5000 ){
-            brush = img4;
+            brush = img2;
     }else if(freq > 5000 && freq < 6000 ){
-            brush = img2;
+            brush = img7;
     }else if(freq > 6000 && freq < 7000 ){
-            brush = img2;
+            brush = img4;
     }else if(freq > 7000 && freq < 8000 ){
-            brush = img3;
+            brush = img9;
     }else if(freq > 8000 && freq < 9000 ){
-            brush = img3;
+            brush = img5;
     }else if(freq > 9000 && freq < 10000 ){
             brush = img8;
     }else if(freq > 10000 && freq < 11000 ){
@@ -386,9 +403,11 @@ function paintEllipse(freq){
     }else if(freq > 12000 && freq < 13000 ){
             brush = img4;
     }else if(freq > 14000 && freq < 15000 ){
-            brush = img2;
-    }else if(freq > 15000 ){
-            brush = img3;
+            brush = img4;
+    }else if(freq > 15000 && freq < 16000 ){
+            brush = img4;
+    }else if(freq > 16000 ){
+            brush = img5;
     }
     
     
