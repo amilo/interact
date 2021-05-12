@@ -9,6 +9,9 @@ let brush;
 let osc1;
 let osc2;
 
+let saving = false;
+
+let canvas;
 
 let font,
   fontsize = 40;
@@ -145,6 +148,10 @@ flower1.mask(imgMask);
     spacing = (canvas.width - buttonWidth)/ 6;
     //colorA = map(mouseX, 0, width, 0, 255);
     myButton = new KeyboardButton(spacing, height-height/4-spacing);
+    
+     myButtonSave = new KeyboardButton(spacing*2, height-height/4-spacing);
+//    myButtonSave.size = 90;
+    myButtonSave.color = color(120,10);
 //    myButton.mouseInside(clearCanvas);
 //    myButton.style('background-color', 'white');
     
@@ -532,6 +539,36 @@ class KeyboardButton {
         }
         
     }
+    
+    Save(){
+        if ((mouseX< (this.x + this.size/2)) && (mouseX > (this.x -this.size/2))){
+            
+            if (mouseY > this.y -this.size/2 && mouseY< this.y + this.size/2 ){
+                
+                this.color = color(0,255,0,50);
+//                
+                
+                if (mouseIsPressed && !saving){
+                    
+//                    if (!saving){
+                    
+                    save(canvas, 'mandala_creato_il_giorno_' + day() +"_ore_"+ hour()+"_minuti_"+minute(), 'png');
+                    saving = true;
+//                    }
+                    this.color = color(0,50);
+                }
+                else if (mouseIsPressed && saving){ 
+                    
+                }
+                else if (mouseReleased){ 
+                    
+                    this.color = color(230,50);
+                     saving = false;
+                    }
+            }
+        }
+        
+    }
 }
 
 function draw(){
@@ -541,6 +578,9 @@ function draw(){
 //    myButton.update();
     myButton.mouseInside();
     myButton.display();
+    
+    myButtonSave.Save();
+    myButtonSave.display();
 //    line (map(freq,330,900,0,width), 300, map(freq,330,900,canvas.position.x,canvas.width), height);
    
 //    line (freq/3-width/2,height/2+height/8, freq/3-width/2,height/2+height/4);
@@ -574,7 +614,8 @@ function draw(){
          // updateValue();
     } else {
         //value = 10;
-      stroke(237, 34, 93);
+//      stroke(237, 34, 93);
+        stroke(20,20);
     }
     
     if (mouseReleased){
@@ -739,6 +780,15 @@ function mousePressed(){
 function mouseReleased(){
     stopOscillator();
 //    rotate(PI / 180 * frameCount*12%360);
+}
+
+function keyTyped() {
+ 
+  // Pressing the "q" key to
+  // save the image
+  if (key === 'q') {
+    img.save('saved-image', 'png');
+  }
 }
 //function mousePressed() {
 // if ( song.isPlaying() ) { // .isPlaying() returns a boolean
