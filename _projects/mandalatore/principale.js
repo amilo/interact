@@ -4,9 +4,15 @@ let imgMask;
 let flower1;
 let img2;
 let first;
+let brush;
 
 let osc1;
 let osc2;
+
+
+let font,
+  fontsize = 40;
+
 
 let mousePressedOnce;
 
@@ -17,14 +23,15 @@ function preload() {
 //    song = loadSound('aural30sec-018-FOU.wav');
     img = loadImage('mask.png');
     imgMask1 = loadImage('mask.png');
-    flower1 = loadImage('flow_icon.png');
+    flower1 = loadImage('Prim_Icon.png');
+    
+    brush = loadImage('mask.png')
     
 //     flower1 = loadImage('flow_icon.png');
     
     
     //img2 = loadImage('PinkFlower.jpeg');
-    img5 = loadImage('E_Yellow_Green_Flower_blurred_smaller.png');
-    imgMask5 = loadImage('E_Yellow_Green_Flower_blurred_smaller.png');
+
     
     img2 = loadImage('C_Red_Pink_Flower_Oil_smaller.png');
     imgMask2 = loadImage('C_Red_Pink_Flower_Oil_smaller.png');
@@ -37,12 +44,23 @@ function preload() {
         img4 = loadImage('A_blue_flower_smaller.png');
     imgMask4 = loadImage('A_blue_flower_smaller.png');
     
-           img6 = loadImage('A_Leaves_Full_Edges.png');
-    imgMask6 = loadImage('A_Leaves_Full_Edges.png');
+        img5 = loadImage('E_Yellow_Green_Flower_blurred_smaller.png');
+    imgMask5 = loadImage('E_Yellow_Green_Flower_blurred_smaller.png');
+    
+           img6 = loadImage('A_Leaves_Full_smaller.png');
+    imgMask6 = loadImage('A_Leaves_Full_smaller.png');
     
     
            img7 = loadImage('B_Leaves_Full_Sat.png');
     imgMask7 = loadImage('B_Leaves_Full_Sat.png');
+    
+               img8 = loadImage('FindingTheEdgesOfPrimrose.png');
+    imgMask8 = loadImage('FindingTheEdgesOfPrimrose.png');
+    
+    
+               img9 = loadImage('FindingTheEdgesOfPrimrose.png');
+    imgMask9 = loadImage('FindingTheEdgesOfPrimrose.png');
+    
     
     //        img3 = loadImage('C_Red_Pink_Flower_Oil.png');
 //    imgMask3 = loadImage('C_Red_Pink_Flower_Oil.png');
@@ -61,8 +79,16 @@ let l1 = 0.098; // attack level 0.0 to 1.0
 let t2 = 0.3; // decay time in seconds
 let l2 = 0.0; // decay level  0.0 to 1.0
 
+let t3 = 0.3; // attack time in seconds
+let l3 = 0.098; // attack level 0.0 to 1.0
+let t4 = 0.7; // decay time in seconds
+let l4 = 0.001; // decay level  0.0 to 1.0
+
 let env;
 let triOsc;
+
+let env2;
+let triOsc2;
 
 let xcenter, ycenter;
 
@@ -76,7 +102,7 @@ let myButtonsLength = 21;
 var buttonWidth = 40;
 var spacing ;
 
-
+let nameArray = [];
 // function setup() {
 // createCanvas(710, 200);
 // song.loop(); // song is ready to play during setup() because it was loaded during preload
@@ -102,6 +128,8 @@ function setup() {
      img5.mask(imgMask5);
     img6.mask(imgMask6);
     img7.mask(imgMask7);
+     img8.mask(imgMask8);
+    img9.mask(imgMask9);
     
 flower1.mask(imgMask);
   imageMode(CENTER);
@@ -110,6 +138,9 @@ flower1.mask(imgMask);
     
   env = new p5.Envelope(t1, l1, t2, l2);
   triOsc = new p5.Oscillator('sine');
+    
+      env2 = new p5.Envelope(t3, l3, t4, l4);
+  triOsc2 = new p5.Oscillator('sawtooth');
     //PrintMe();
     spacing = (canvas.width - buttonWidth)/ 6;
     //colorA = map(mouseX, 0, width, 0, 255);
@@ -137,16 +168,26 @@ flower1.mask(imgMask);
         //myButtons.push(createButton(i.toString(), i.toString()));
         col.push(color((i%7+3)%7, 25+(i%3)*20 , 24-((i%3)*4)));
         
-//        if (i>7){
+        if (i>=10){
         
-       myButtons.push(createImg('flow_icon.png', "flow"));
-//        }
+       myButtons.push(createImg('Prim_Icon.png', "flow"));
+        }
         //myButtons.push(createButton(i.toString(), i.toString()));
         myButtons[i].parent('simple-sketch-aural');
         myButtons[i].position(i%7*spacing, 600 + (i%3*60));
         myButtons[i].size(60,60);
         myButtons[i].style('background-color', col[i]);
         myButtons[i].style('position', 'absolute');
+//        myButtons[i].mousePressed(action);
+//        var num = 3;
+//        myButtons[i].addEventListener('click', (event) => ((arg) => {
+//  console.log(event, arg);
+//})('An argument'));
+//                myButtons[i].addEventListener('click', function(e) {
+////  a(e, 4);
+//                    console.log("here");
+//});
+        nameArray[i] = i;
         myButtons[i].mousePressed(action);
         myButtons[i].mouseReleased(stopOscillator);
     }
@@ -163,17 +204,41 @@ flower1.mask(imgMask);
 function clearCanvas(){
     background(250, 250, 255,50);
 }
-
+//function checkout(e) {
+//   e.preventDefault();
+////    var id = number; 
+////   console.log('someone clicked me');
+//    console.log(e.path[0]);
+////    console.log(this);
+////    console.log(num);
+//}
 function action(){
+    
     playOscillator();
-    paintEllipse();
+    paintEllipse(freq);
     playInDraw();
 }
 
-function paintEllipse(){
+function action2(){
+//    console.log(this.element);
+    playOscillator2();
+    paintEllipse(freq);
+    playInDraw();
+}
+
+//function paintFlower(Object){
+//    console.log(Object);
+//    image(img3, 0, mouseY, 50, 50);
+//}
+
+function paintEllipse(freq){
     //fill(0);
     //ellipse(100,100,100);
     //value = 50;
+//    text(int(freq), map(freq,55,1100, 0, width), height/2-height/4);
+    
+    
+    
      updateValue();
    
     //if (first){
@@ -206,8 +271,10 @@ function paintEllipse(){
     
     
     colorMode(HSB, 120,100,10, 100);
+//     tint(map(freq, 220, 440, 1, 120));
     
-    tint(frameCount%120, 50, 9, 70);
+    tint(map(freq, 220, 440, 1, 120), 10, 9, 40);
+//    tint(frequency%120, 50, 9, 70);
 //    noStroke();
     strokeWeight(10);
     stroke(255,10);
@@ -219,12 +286,13 @@ function paintEllipse(){
     
     
     translate(sin(osc1)*size, sin(osc2)*-size);
+    
 //    ellipse(sin(osc1)*100, sin(osc2)*-100, 80+sin(osc1)*20, 80+sin(osc2)*20);
-    ellipse(sin(osc1)*size, 0, 10,10);
+    //ellipse(sin(osc1)*size, 0, 10,10);
 //    ellipse(-sin(osc1)*size, 0, 20,20);
-    ellipse(0, sin(osc2)*-size, 10,10);
+   // ellipse(0, sin(osc2)*-size, 10,10);
 //    ellipse(0, -sin(osc2)*-size, 20,20);
-    ellipse(sin(osc1)*size, sin(osc2)*-size, 10,10);
+    //ellipse(sin(osc1)*size, sin(osc2)*-size, 10,10);
 //    line(0,0, sin(osc1)*size, sin(osc2)*-size);
 //    
 //    line(sin(osc1)*size,0, 0, sin(osc2)*-size);
@@ -240,52 +308,148 @@ function paintEllipse(){
     // 15 for 16 beats;
     // 30 for 8 beats;
     // nodes 180, 90, 45;
+    
+    if (freq > 100 && freq < 150 ){
+            brush = img;
+    }else if(freq > 150 && freq < 200 ){
+            brush = img2;
+    }else if(freq > 200 && freq < 220 ){
+            brush = img3;
+    }else if(freq > 220 && freq < 250 ){
+            brush = img4;
+        
+    }else if(freq > 250 && freq < 300 ){
+            brush = img9;
+    }else if(freq > 300 && freq < 420 ){
+            brush = img6;
+    }else if(freq > 420 && freq < 450 ){
+            brush = img9;
+        
+        
+    }else if(freq > 450 && freq < 500 ){
+            brush = img6;
+    }else if(freq > 500 && freq < 580 ){
+            brush = img7;
+    }else if(freq > 580 && freq < 630 ){
+            brush = img9;
+    }else if(freq > 630 && freq < 700 ){
+            brush = img9;
+    }else if(freq > 700 && freq < 770 ){
+            brush = img5;     
+    }else if(freq > 770 && freq < 800 ){
+            brush = img9;
+        
+    }else if(freq > 800 && freq < 900 ){
+            brush = img6;
+    }else if(freq > 900 && freq < 1000 ){
+            brush = img6;
+    }else if(freq > 1000 && freq < 1200 ){
+            brush = img9;
+    }else if(freq > 1200 && freq < 1300 ){
+            brush = img3;
+    }else if(freq > 1300 && freq < 1400 ){
+            brush = img3;
+    }else if(freq > 1400 && freq < 1600 ){
+            brush = img9;
+        
+    }else if(freq > 1600 && freq < 1800 ){
+            brush = img4;
+    }else if(freq > 1800 && freq < 2000 ){
+            brush = img9;
+    }else if(freq > 2000 && freq < 2250 ){
+            brush = img7;
+    }else if(freq > 2250 && freq < 2500 ){
+            brush = img2;
+    }else if(freq > 2500 && freq < 3000 ){
+            brush = img9;
+    }else if(freq > 3000 && freq < 3500 ){
+            brush = img7;
+    }else if(freq > 3500 && freq < 4000 ){
+            brush = img7;
+        
+    }else if(freq > 4000 && freq < 5000 ){
+            brush = img4;
+    }else if(freq > 5000 && freq < 6000 ){
+            brush = img2;
+    }else if(freq > 6000 && freq < 7000 ){
+            brush = img2;
+    }else if(freq > 7000 && freq < 8000 ){
+            brush = img3;
+    }else if(freq > 8000 && freq < 9000 ){
+            brush = img3;
+    }else if(freq > 9000 && freq < 10000 ){
+            brush = img8;
+    }else if(freq > 10000 && freq < 11000 ){
+            brush = img7;
+    }else if(freq > 11000 && freq < 12000 ){
+            brush = img6;
+    }else if(freq > 12000 && freq < 13000 ){
+            brush = img4;
+    }else if(freq > 14000 && freq < 15000 ){
+            brush = img2;
+    }else if(freq > 15000 ){
+            brush = img3;
+    }
+    
+    
+    
+
+    
     if (frameCount%5 == 0){
         
 //        noTint();
-    image(img4, sin(osc1)*size, 0, 80, 80);
+        
+        
+//        image(brush, sin(osc1)*size, 0, 180, 180);
+        
+        
+    image(brush, sin(osc1)*size, 0, 80, 80);
         
          fill(50+sin(osc1)*5, 50+sin(osc2)*2, 9, 30);
         strokeWeight(1);
         stroke(50+sin(osc1)*10, 50+sin(osc2)*5, 8+sin(osc2)*2, 50)
-        curve(-sin(osc1)*size/2, 0, sin(osc1)*size, 50, sin(osc1)*size, sin(osc1)*size*2, sin(osc1)*size*2, sin(osc2)*-size );
+//        curve(-sin(osc1)*size/2, 0, sin(osc1)*size, 50, sin(osc1)*size, sin(osc1)*size*2, sin(osc1)*size*2, sin(osc2)*-size );
         
-        curve(0,0, 0, -sin(osc1)*size/2, 0, sin(osc1)*size*2, 0, 0);
+//        curve(0,0, 0, -sin(osc1)*size/2, 0, sin(osc1)*size*2, 0, 0);
    
 
 //    image(img, sin(osc1)*100, sin(osc2)*-100, 60, 60);
     }
      if (frameCount%10 == 0){
          
-    image(img3, sin(osc2)*-size, 0, 50, 50);
-         noTint();
-         image(img7, width/2-width/4, sin(osc2)*-size, 120, 120); 
-             line(sin(osc1)*size,0, 0, sin(osc2)*-size);
-         curve(0, -sin(osc1)*size/2, sin(osc1)*size*2, 50, sin(osc1)*size*2, sin(osc1)*size/2, sin(osc1)*size*4, sin(osc2)*-size*2 );
+    image(brush, sin(osc2)*-size, 0, 50, 50);
+//         noTint();
+         image(brush, width/2-width/4, sin(osc2)*-size, 120, 120); 
+//             line(sin(osc1)*size,0, 0, sin(osc2)*-size);
+//         curve(0, -sin(osc1)*size/2, sin(osc1)*size*2, 50, sin(osc1)*size*2, sin(osc1)*size/2, sin(osc1)*size*4, sin(osc2)*-size*2 );
         
      }
      if (frameCount%12 == 0){
-          image(img5, 0, sin(osc1)*size, 90, 90);
          
-         image(img6, width/4-width/2, sin(osc1)*size, 90, 90);
+//          noTint();
+          image(brush, 0, sin(osc1)*size, 90, 90);
          
-         line(0,0, sin(osc1)*size, sin(osc2)*-size);
-            curve(0, sin(osc1)*size/2, 20+sin(osc1)*size/5, 50, sin(osc1)*size*2, sin(osc1)*size/2, sin(osc1)*size*4, sin(osc2)*-size*2 );
+         image(brush, width/4-width/2, sin(osc1)*size, 90, 90);
+         
+//         line(0,0, sin(osc1)*size, sin(osc2)*-size);
+//            curve(0, sin(osc1)*size/2, 20+sin(osc1)*size/5, 50, sin(osc1)*size*2, sin(osc1)*size/2, sin(osc1)*size*4, sin(osc2)*-size*2 );
         
      }
     
     if (frameCount%30 == 0){
-      image(img3, 0, sin(osc2)*-size, 30, 30); 
+      image(brush, 0, sin(osc2)*-size, 30, 30); 
         
         
-        curve(-sin(osc1)*size/2, -sin(osc1)*size/2, sin(osc1)*size, -sin(osc1)*size/2, 0, sin(osc1)*size*2, sin(osc1)*size*2, 0);
+//        curve(-sin(osc1)*size/2, -sin(osc1)*size/2, sin(osc1)*size, -sin(osc1)*size/2, 0, sin(osc1)*size*2, sin(osc1)*size*2, 0);
 
     }
     
     if (frameCount%60 == 0){
-    tint(frameCount%120, 50, 9, 80);
+        
+        tint(map(freq, 220, 440, 1, 120)%120, 50, 9, 70);
+//    tint(frameCount%120, 50, 9, 80);
 //        noTint();
-    image(img2, 0, 0, 100, 100);
+    image(brush, 0, 0, 100, 100);
 //    image(img, sin(osc1)*100, sin(osc2)*-100, 60, 60);
     }
      
@@ -378,7 +542,10 @@ function draw(){
           rotate(PI / 180 * frameCount*n%360);
 //        playOscillatorLong();
 //        playOscillator();
-        paintEllipse();
+        
+        
+        paintEllipse(freq);
+           
         
 //        playInDraw();
         
@@ -407,6 +574,8 @@ function draw(){
 //   triOsc.start();
 //   //env.play(triOsc);
 // }
+
+
 
 function drawButtons(){
 //    var buttonWidth = 40;
@@ -470,6 +639,12 @@ function playInDraw(){
     triOsc.freq(freq, 0.005);
       
     triOsc.amp(amp, 0.005);
+      
+         triOsc2.freq(map(freq, 440, 40000, 20, 5000), 0.5);
+      
+    triOsc2.amp(amp, 0.005);
+      
+    
   }
 }
 
@@ -492,22 +667,35 @@ function playOscillator() {
   playing = true;
 }
 
-function playOscillatorLong() {
+function playOscillator2() {
   // starting an oscillator on a user gesture will enable audio
   // in browsers that have a strict autoplay policy.
   // See also: userStartAudio();
-    if (!mousePressedOnce) {
-//  triOsc.start();
-//    env.play(triOsc);
+  triOsc2.start();
+    env2.play(triOsc2);
   playing = true;
-    mousePressedOnce = true;
-        stopOscillator();
-    }
 }
+
+//
+//function playOscillatorLong() {
+//  // starting an oscillator on a user gesture will enable audio
+//  // in browsers that have a strict autoplay policy.
+//  // See also: userStartAudio();
+//    if (!mousePressedOnce) {
+////  triOsc.start();
+////    env.play(triOsc);
+//  playing = true;
+//    mousePressedOnce = true;
+//        stopOscillator();
+//    }
+//}
 
 function stopOscillator() {
   // ramp amplitude to 0 over 0.5 seconds
   triOsc.amp(0, 0.2);
+  playing = false;
+    
+      triOsc2.amp(0, 0.01);
   playing = false;
 }
 
@@ -518,6 +706,14 @@ function stopOscillator() {
 //}
 function mousePressed(){
     background(250, 250, 255,5);
+    
+    if (mouseY-height/4<height/2){
+        
+        action2();
+    }
+//    action2();
+    
+    
 //    rotate(PI / 180 * frameCount%360);
 }
 
