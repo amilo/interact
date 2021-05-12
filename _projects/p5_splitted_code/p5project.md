@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "P5 sketch splitted in several files"
+title:  "P5 sketch split in several files"
 date:   2016-08-01
 thumbnail: particles_thumbnail.png
 dependencies:

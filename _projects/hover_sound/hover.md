@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Hover Sound"
+title:  "Click the screen"
 date:   2016-09-01
 thumbnail: thumbnail.png
 dependencies:

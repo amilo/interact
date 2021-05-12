@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Mandalatore"
+title:  "Mandalatore Prototipo 2"
 date:   2021-05-10
 thumbnail: thumbnail.png
 dependencies:

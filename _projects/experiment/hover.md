@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "MandalaGenerator"
+title:  "Generatore di Mandale Prototipo 1"
 date:   2021-04-16
 thumbnail: thumbnail.png
 dependencies:

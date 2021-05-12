@@ -7,7 +7,7 @@ let first;
 
 let col =[];
 function preload() {
-    song = loadSound('aural30sec-018-FOU.wav');
+//    song = loadSound('aural30sec-018-FOU.wav');
     img = loadImage('mask.png');
     imgMask = loadImage('mask.png');
     flower1 = loadImage('flow_icon.png');
