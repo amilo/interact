@@ -74,9 +74,9 @@ let dist;
 
 let osc, playing, freq, amp;
 
-let t1 = 0.001; // attack time in seconds
-let l1 = 0.098; // attack level 0.0 to 1.0
-let t2 = 0.3; // decay time in seconds
+let t1 = 0.005; // attack time in seconds
+let l1 = 0.02; // attack level 0.0 to 1.0
+let t2 = 0.4; // decay time in seconds
 let l2 = 0.0; // decay level  0.0 to 1.0
 
 let t3 = 0.3; // attack time in seconds
@@ -140,7 +140,7 @@ flower1.mask(imgMask);
   triOsc = new p5.Oscillator('sine');
     
       env2 = new p5.Envelope(t3, l3, t4, l4);
-  triOsc2 = new p5.Oscillator('sawtooth');
+  triOsc2 = new p5.Oscillator('sine');
     //PrintMe();
     spacing = (canvas.width - buttonWidth)/ 6;
     //colorA = map(mouseX, 0, width, 0, 255);
@@ -636,11 +636,11 @@ function playInDraw(){
 //
   if (playing) {
     // smooth the transitions by 0.1 seconds
-    triOsc.freq(freq, 0.005);
+    triOsc.freq(freq, 0.001);
       
-    triOsc.amp(amp, 0.005);
+    triOsc.amp(amp, 0.001);
       
-         triOsc2.freq(map(freq, 440, 40000, 20, 5000), 0.5);
+         triOsc2.freq(constrain(map(freq, 440, 40000, 165, 5000),165,5000), 0.9);
       
     triOsc2.amp(amp, 0.005);
       
