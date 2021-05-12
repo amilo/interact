@@ -113,7 +113,9 @@ flower1.mask(imgMask);
     //PrintMe();
     spacing = (canvas.width - buttonWidth)/ 6;
     //colorA = map(mouseX, 0, width, 0, 255);
-    //myButton = new KeyboardButton(100, 100);
+    myButton = new KeyboardButton(spacing, height-height/4-spacing);
+//    myButton.mouseInside(clearCanvas);
+//    myButton.style('background-color', 'white');
     
 //    myButtons.push(createImg('flow_icon.png'));
     
@@ -156,6 +158,10 @@ flower1.mask(imgMask);
 
 
 
+}
+
+function clearCanvas(){
+    background(250, 250, 255,50);
 }
 
 function action(){
@@ -310,7 +316,8 @@ class KeyboardButton {
     constructor(x,y){
         this.x = x;
         this.y = y;
-        this.color = color(100,200,100);
+        this.size = spacing/2;
+        this.color = color(255);
     }
     
     update(){
@@ -320,16 +327,37 @@ class KeyboardButton {
     }
     
     display(){
-        fill(0);
-        rect(this.x, this.y, 20, 20);
+        fill(this.color);
+        rectMode(CENTER);
+        strokeWeight(0.5);
+        ellipse(this.x, this.y, this.size, this.size);
+    }
+    
+    mouseInside(){
+        if ((mouseX< (this.x + this.size/2)) && (mouseX > (this.x -this.size/2))){
+            
+            if (mouseY > this.y -this.size/2 && mouseY< this.y + this.size/2 ){
+                
+                if (mouseIsPressed){
+                
+                    clearCanvas();
+                    this.color = color(230,50);
+                }
+                else{ this.color = color(255);
+                    }
+            }
+        }
+        
     }
 }
 
 function draw(){
     
+    
     //drawButtons();
 //    myButton.update();
-//    myButton.display();
+    myButton.mouseInside();
+    myButton.display();
 //    line (map(freq,330,900,0,width), 300, map(freq,330,900,canvas.position.x,canvas.width), height);
    
 //    line (freq/3-width/2,height/2+height/8, freq/3-width/2,height/2+height/4);
